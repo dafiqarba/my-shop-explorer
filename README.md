@@ -41,13 +41,19 @@ cd shop-explorer
 npm install
 ```
 
-3. Start the development server:
+3. Copy the env variable, and fill the variable with: https://api.escuelajs.co/api/v1
+
+```bash
+cp .env.example .env
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-4. Open your browser at `http://localhost:5173`
+5. Open your browser at `http://localhost:5173`
 
 ## Project Structure
 
