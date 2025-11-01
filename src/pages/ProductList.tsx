@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { Link } from 'react-router'
+import { useEffect, useState } from 'react'
 
 import { useCategories, useProducts } from '../hooks'
 import { Card, Input, Select } from '../components/commons'
@@ -9,8 +9,18 @@ const ProductList = () => {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('all')
 
-  const { data: products, isLoading: productsLoading } = useProducts()
-  const { data: categories, isLoading: categoriesLoading } = useCategories()
+  const {
+    data: products,
+    error: errProducts,
+    isError: isErrProducts,
+    isLoading: productsLoading,
+  } = useProducts()
+  const {
+    data: categories,
+    error: errCategories,
+    isError: isErrCategories,
+    isLoading: categoriesLoading,
+  } = useCategories()
 
   const filteredProducts =
     products?.filter((product) => {
@@ -27,6 +37,15 @@ const ProductList = () => {
       label: cat.name,
     })) || []),
   ]
+
+  useEffect(() => {
+    if (isErrProducts) {
+      alert(errProducts)
+    }
+    if (isErrCategories) {
+      alert(errCategories)
+    }
+  }, [isErrCategories, isErrProducts])
 
   if (productsLoading || categoriesLoading) {
     return (

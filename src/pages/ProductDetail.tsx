@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router'
 
 import { useAddToCart, useProduct } from '../hooks'
@@ -9,9 +9,15 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
   const productId = Number(id)
 
-  const { data: product, isLoading } = useProduct(productId)
+  const { data: product, isLoading, error, isError } = useProduct(productId)
   const addToCartMutation = useAddToCart()
   const [selectedImage, setSelectedImage] = useState(0)
+
+  useEffect(() => {
+    if (isError) {
+      alert(error)
+    }
+  }, [isError])
 
   const handleAddToCart = () => {
     if (product) {
